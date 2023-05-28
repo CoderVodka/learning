@@ -6,7 +6,6 @@ int main()
 {
 	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
 	int n = 0;
-	int mid = 0;      //中点的下标
 	int size = sizeof(arr) / sizeof(arr[0]);
 	int left = 0;     //左边界
 	int right = size - 1; //右边界
@@ -14,7 +13,9 @@ int main()
 
 	do
 	{
-		mid = (left + right) / 2; //设置中点
+		//int mid = (left + right) / 2; 
+		int mid = left + (right - left) / 2;  //设置中点，这里不适用上面一行的代码，为了防止left+right的数据过大超出整型的最大值
+
 		/*if ((arr[mid] != n) && (left == right))    //此处跳出循环的判断可能出现问题，
 		{                                            // 在移动下标时可能出现left>right的情况，
 			printf("未找到\n");                      //这种情况下无法跳出循环，从而出现死循环的情况
