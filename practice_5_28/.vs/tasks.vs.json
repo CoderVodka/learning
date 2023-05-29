@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "任务-Debug",
+      "appliesTo": "practice_5_28/x64/Debug/",
+      "type": "launch"
+    }
+  ]
+}
