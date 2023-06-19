@@ -55,7 +55,7 @@ void DisplayBoard(char board[ROW][COL], int row, int col)
 }
 
 //玩家下棋
-void PlayerMove(char board[ROW][COL], int row, int col, int pieceSite[])
+void PlayerMove(char board[ROW][COL], int row, int col, int pieceSite[2])
 {
 	while (1)
 	{
@@ -85,7 +85,7 @@ void PlayerMove(char board[ROW][COL], int row, int col, int pieceSite[])
 }
 
 //电脑下棋
-void ComputerMove(char board[ROW][COL], int row, int col, int pieceSite[])
+void ComputerMove(char board[ROW][COL], int row, int col, int pieceSite[2])
 {
 	while (1)
 	{
@@ -103,7 +103,7 @@ void ComputerMove(char board[ROW][COL], int row, int col, int pieceSite[])
 }
 
 //判断输赢
-char Judge(char board[ROW][COL], int condition, int row, int col, int pieceSite[])  //condition是胜利条件，pieceSite[]是最近下的一颗棋子的坐标
+char Judge(char board[ROW][COL], int condition, int row, int col, int pieceSite[2])  //condition是胜利条件，pieceSite[]是最近下的一颗棋子的坐标
 {
 	int x = 0;
 	int y = 0;

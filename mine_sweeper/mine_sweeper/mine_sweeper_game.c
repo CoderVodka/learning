@@ -93,7 +93,7 @@ void DisplayMine(int mine[MINE_NUMBER][2], int mineNumber)
 }
 
 
-//打印界面
+//打印游戏界面
 void DisplayGameBoard(char gameBoard[ROWS][COLS], int row, int col)
 {
 	int i = 1;
@@ -135,7 +135,7 @@ void DisplayGameBoard(char gameBoard[ROWS][COLS], int row, int col)
 	}
 }
 
-//标记地雷
+//操作：标记地雷
 void MarkMine(char gameBoard[ROWS][COLS], int x, int y, int* markCount)
 {
 	if (gameBoard[x][y] == '#')
@@ -147,7 +147,7 @@ void MarkMine(char gameBoard[ROWS][COLS], int x, int y, int* markCount)
 		printf("坐标已标记或排查\n");
 }
 
-//取消标记
+//操作：取消标记
 void UnMarkMine(char gameBoard[ROWS][COLS], int x, int y, int* markCount)
 {
 	if (gameBoard[x][y] == '!')
@@ -159,7 +159,7 @@ void UnMarkMine(char gameBoard[ROWS][COLS], int x, int y, int* markCount)
 		printf("坐标未标记或已被排查\n");
 }
 
-//排查地雷
+//操作：排查地雷
 void Sweeper(char mineMap[ROWS][COLS], char gameBoard[ROWS][COLS], int x, int y, int* clearCount)
 {
 	//坐标不是雷且未被排查或标记时执行
@@ -176,7 +176,7 @@ void Sweeper(char mineMap[ROWS][COLS], char gameBoard[ROWS][COLS], int x, int y,
 		{
 			gameBoard[x][y] = ' ';
 
-			//递归展开周围格子
+			//递归扩展周围没有雷的格子
 			Sweeper(mineMap, gameBoard, x - 1, y - 1, clearCount);
 			Sweeper(mineMap, gameBoard, x - 1, y, clearCount);
 			Sweeper(mineMap, gameBoard, x - 1, y + 1, clearCount);
@@ -210,7 +210,7 @@ char AllMineMarked(char gameBoard[ROWS][COLS], int mine[MINE_NUMBER][2], int min
 		return '#';
 }
 
-//胜利条件：清除全部非雷区
+//获胜条件：清除全部非雷区
 char ClearAllField(char gameBoard[ROWS][COLS], int mine[MINE_NUMBER][2], 
 	int mineNumber, int row, int col, int* clearCount)
 {
@@ -229,7 +229,7 @@ char ClearAllField(char gameBoard[ROWS][COLS], int mine[MINE_NUMBER][2],
 		return '#';
 }
 
-//扫雷判断
+//失败条件：踩到地雷
 char GameOver(char mineMap[ROWS][COLS], char gameBoard[ROWS][COLS], 
 	int mine[MINE_NUMBER][2], int x, int y, int mineNumber)
 {
