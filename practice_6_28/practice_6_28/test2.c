@@ -8,7 +8,7 @@ int main()
 {
 	char ch = 0;
 	
-	while (scanf("%c", &ch) == 1)
+	while (scanf("%c", &ch) == 1)  //当scanf成功读取到一个字符时会返回1，否则返回EOF
 	{
 		if (islower(ch))
 			printf("%c\n", toupper(ch));
