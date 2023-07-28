@@ -1,0 +1,5 @@
+﻿  String.c
+  test.c
+  正在生成代码...
+D:\File\PracticeCode\learning\simulate_string_function\simulate_string_function\String.c(55): warning C4715: “StringNumCompare”: 不是所有的控件路径都返回值
+  simulate_string_function.vcxproj -> D:\File\PracticeCode\learning\simulate_string_function\x64\Debug\simulate_string_function.exe
