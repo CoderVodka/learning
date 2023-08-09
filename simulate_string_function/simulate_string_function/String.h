@@ -9,3 +9,4 @@ char* StringNumCat(char* front, const char* back, int count);
 
 int StringNumCompare(const char* string1, const char* string2, int count);
 
+char* StringString(const char* string, const char* objString);

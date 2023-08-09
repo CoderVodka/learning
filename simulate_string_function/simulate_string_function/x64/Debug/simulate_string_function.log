@@ -1,5 +1,3 @@
-﻿  String.c
-  test.c
-  正在生成代码...
-D:\File\PracticeCode\learning\simulate_string_function\simulate_string_function\String.c(55): warning C4715: “StringNumCompare”: 不是所有的控件路径都返回值
+﻿  test.c
+D:\File\PracticeCode\learning\simulate_string_function\simulate_string_function\test.c(19,28): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
   simulate_string_function.vcxproj -> D:\File\PracticeCode\learning\simulate_string_function\x64\Debug\simulate_string_function.exe
