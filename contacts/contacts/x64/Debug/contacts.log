@@ -1,1 +1,7 @@
-﻿  contacts.vcxproj -> D:\File\PracticeCode\learning\contacts\x64\Debug\contacts.exe
+﻿  contacts.c
+D:\File\PracticeCode\learning\contacts\contacts\contacts.c(56,45): warning C4090: “=”: 不同的“const”限定符
+D:\File\PracticeCode\learning\contacts\contacts\contacts.c(49,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\File\PracticeCode\learning\contacts\contacts\contacts.c(72,45): warning C4090: “=”: 不同的“const”限定符
+D:\File\PracticeCode\learning\contacts\contacts\contacts.c(65,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\File\PracticeCode\learning\contacts\contacts\contacts.c(142,18): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
+  contacts.vcxproj -> D:\File\PracticeCode\learning\contacts\x64\Debug\contacts.exe

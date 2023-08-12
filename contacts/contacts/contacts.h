@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 typedef struct PeoInfo
 {
@@ -11,20 +12,27 @@ typedef struct PeoInfo
 	char tele[12];
 }PeoInfo;
 
-void ShowAllList(PeoInfo list[100], int count);
+//创建通讯录需要记录成员数量，因此将通讯录数组与计数封装成一个结构体，更方便使用
+typedef struct Contacts
+{
+	PeoInfo data[100];
+	int count;
+}Contacts;
 
-void ShowSmpList(PeoInfo list[100], int count);
+//展示通讯录
+void ShowAllData(const Contacts* list);
 
-int AddPeo(PeoInfo list[100], int* pcount);
+//添加联系人
+int AddPeo(Contacts* list);
 
-int SearchKeyWords(PeoInfo list[100], int* pcount, PeoInfo** searchRes, char* keywords);
+//搜索联系人
+PeoInfo* SearchPeo(const Contacts* list);
 
-int SearchTele(PeoInfo list[100], int* pcount, PeoInfo** searchRes, char* teleNum);
+//删除联系人
+int DelPeo(Contacts* list);
 
-PeoInfo* SearchPeo(PeoInfo list[100], int* pcount);
+//修改联系人的信息
+PeoInfo* MotifyInfo(Contacts* list);
 
-int DelPeo(PeoInfo list[100], int* pcount);
-
-PeoInfo* MotifyInfo(PeoInfo list[100], int* pcount);
-
-void SortPeoName(PeoInfo list[100], int count);
+//按姓名顺序排序
+void SortPeoName(Contacts* list);

@@ -15,14 +15,26 @@ void Menu()
 	printf("请选择操作:\n");
 }
 
+enum Operation 
+{
+	EXIT,
+	MENU,
+	ADD,
+	DEL,
+	MODIFY,
+	SEARCH,
+	SORT,
+	SHOW
+};
+
 int main()
 {
-	PeoInfo peoList[100] = { 
-		{ "zhangsan", 18, "male", "18012345657" }, 
-		{ "lisi", 20, "male", "18600930202" },
-		{ "zhangli", 18, "female", "13895950429" }, 
-		{ "zhenlong", 23, "male", "12422549458" } };
-	int count = 4;
+	Contacts member = {
+		{{ "zhangsan", 18, "male", "18012345657" },
+		 { "lisi", 20, "male", "18600930202" },
+		 { "zhangli", 18, "female", "13895950429" },
+		 { "zhenlong", 23, "male", "12422549458" }},
+		4 };
 	int input = 1;
 	Menu();
 	
@@ -32,40 +44,36 @@ int main()
 
 		switch (input)
 		{
-		case 0:
+		case EXIT:
 			printf("exit\n");
 			break;
-		case 1:
+		case MENU:
 			printf("show menu\n");
 			Menu();
 			break;
-		case 2:
+		case ADD:
 			printf("add member\n");
-			int ret = AddPeo(peoList, &count);
-			if (-1 == ret)
-				printf("重复的姓名或电话\n");
-			else
-				printf("添加成功\n");
+			AddPeo(&member);
 			break;
-		case 3:
+		case DEL:
 			printf("delete member\n");
-			DelPeo(peoList, &count);
+			DelPeo(&member);
 			break;
-		case 4:
-			printf("motify member information\n");
-			MotifyInfo(peoList, &count);
+		case MODIFY:
+			printf("modify member information\n");
+			MotifyInfo(&member);
 			break;
-		case 5:
+		case SEARCH:
 			printf("search members\n");
-			SearchPeo(peoList, &count);
+			SearchPeo(&member);
 			break;
-		case 6:
+		case SORT:
 			printf("sort members\n");
-			SortPeoName(peoList, count);
+			SortPeoName(&member);
 			break;
-		case 7:
+		case SHOW:
 			printf("show members\n");
-			ShowSmpList(peoList, count);
+			ShowAllData(&member);
 			break;
 		default:
 			printf("error\n");

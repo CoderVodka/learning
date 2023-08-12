@@ -2,96 +2,96 @@
 
 #include "contacts.h"
 
-void ShowAllList(PeoInfo list[100], int count)
+//展示通讯录
+void ShowAllData(const Contacts* list)
+{
+	int i = 0;
+
+	printf("---------------------\n");
+
+	for (i = 0; i < list->count; i++)
+	{
+		printf("姓名：    %s\n", list->data[i].name);
+		printf("年龄：    %d\n", list->data[i].age);
+		printf("性别：    %s\n", list->data[i].sex);
+		printf("电话号码：%s\n", list->data[i].tele);
+		printf("---------------------\n");
+	}
+}
+
+//展示联系人的名称和电话号码
+static void ShowSmpList(PeoInfo* members, int count)
 {
 	int i = 0;
 
 	for (i = 0; i < count; i++)
-	{
-		printf("%s\n%d\n%s\n%s\n\n",
-			list[i].name,
-			list[i].age,
-			list[i].sex,
-			list[i].tele);
-	}
+		printf("%-24s %s\n", members[i].name, members[i].tele);
 }
 
-void ShowSmpList(PeoInfo list[100], int count)
+//添加联系人
+int AddPeo(Contacts* list)
 {
-	int i = 0;
+	printf("请输入姓名：");
+	scanf("%s", list->data[list->count].name);
+	printf("请输入年龄：");
+	scanf("%d", &list->data[list->count].age);
+	printf("请输入性别：");
+	scanf("%s", list->data[list->count].sex);
+	printf("请输入电话号码：");
+	scanf("%s", list->data[list->count].tele);
 
-	for (i = 0; i < count; i++)
-		printf("%-24s %s\n", list[i].name, list[i].tele);
+	return ++(list->count);
 }
 
-int AddPeo(PeoInfo list[100], int* pcount)
-{
-	PeoInfo tmp = { 0 };
-	scanf("%s %d %s %s", tmp.name, &tmp.age, tmp.sex, tmp.tele);
-	int flag = 0;
-	int i = 0;
-	
-	for (i = 0; i < *pcount; i++)
-	{
-		if (strcmp(list[i].name, tmp.name) == 0 ||
-			strcmp(list[i].tele, tmp.tele) == 0)
-			flag = 1;
-	}
-
-	if (flag)
-		return -1;
-	else
-	{
-		list[*pcount] = tmp;
-		return ++(*pcount);
-	}
-}
-
-int SearchKeyWords(PeoInfo list[100], int* pcount, PeoInfo** searchRes, char* keywords)
+//根据名字查找
+int SearchName(const Contacts* list, PeoInfo** searchRes, char* keywords)
 {
 	int len = strlen(keywords);
 	int i = 0;
 	int searchCount = 0;
 
-	for (i = 0; i < *pcount; i++)
+	for (i = 0; i < list->count; i++)
 	{
-		if (strncmp(keywords, list[i].name, len) == 0)
-			searchRes[searchCount++] = &list[i];
+		if (strncmp(keywords, list->data[i].name, len) == 0)
+			searchRes[searchCount++] = &list->data[i];
 	}
 
 	return searchCount;
 }
 
-int SearchTele(PeoInfo list[100], int* pcount, PeoInfo** searchRes, char* teleNum)
+//根据电话查找
+int SearchTele(const Contacts* list, PeoInfo** searchRes, char* teleNum)
 {
 	int len = strlen(teleNum);
 	int i = 0;
 	int searchCount = 0;
 
-	for (i = 0; i < *pcount; i++)
+	for (i = 0; i < list->count; i++)
 	{
-		if (strncmp(teleNum, list[i].tele, len) == 0)
-			searchRes[searchCount++] = &list[i];
+		if (strncmp(teleNum, list->data[i].tele, len) == 0)
+			searchRes[searchCount++] = &list->data[i];
 	}
 
 	return searchCount;
 }
 
-
-
-
-PeoInfo* SearchPeo(PeoInfo list[100], int* pcount)
+//查找联系人
+PeoInfo* SearchPeo(const Contacts* list)
 {
-	char searchMsg[20] = { 0 };
-	scanf("%s", searchMsg);
-	int resNum = 0;
+	//输入查找关键词
+	char searchKeyWords[20] = { 0 };
+	printf("请输入要查找的名称或电话：\n");
+	scanf("%s", searchKeyWords);
+	//创建一个数组储存查找到的联系人的地址
 	PeoInfo* resMember[100] = { NULL };
+	int resNum = 0;
 	int i = 0;
 
-	if (searchMsg[0] >= '0' && searchMsg[0] <= '9')
-		resNum = SearchTele(list, pcount, resMember, searchMsg);
+	//判断查找电话或名字
+	if (searchKeyWords[0] >= '0' && searchKeyWords[0] <= '9')
+		resNum = SearchTele(list, resMember, searchKeyWords);
 	else
-		resNum = SearchKeyWords(list, pcount, resMember, searchMsg);
+		resNum = SearchName(list, resMember, searchKeyWords);
 
 	if (0 == resNum)
 	{
@@ -106,50 +106,55 @@ PeoInfo* SearchPeo(PeoInfo list[100], int* pcount)
 			ShowSmpList(resMember[i], 1);
 		}
 		int num = 0;
-		printf("请输入目标编号/输入0退出\n");
+		printf("请输入目标联系人的编号 / 输入0退出\n");
 		scanf("%d", &num);
 
+		//退出返回空指针
 		if (0 == num)
 			return NULL;
 
-		ShowAllList(resMember[num - 1], 1);
+		printf("姓名：    %s\n", resMember[num - 1]->name);
+		printf("年龄：    %d\n", resMember[num - 1]->age);
+		printf("性别：    %s\n", resMember[num - 1]->sex);
+		printf("电话号码：%s\n", resMember[num - 1]->tele);
 
+		//查找完成返回目标地址
 		return resMember[num - 1];
 	}
 }
 
-int DelPeo(PeoInfo list[100], int* pcount)
+//删除联系人
+int DelPeo(Contacts* list)
 {
-	PeoInfo* deleObj = SearchPeo(list, pcount);
+	//获得搜索到的联系人的地址
+	PeoInfo* deleObj = SearchPeo(list);
 	int num = 0;
 	int i = 0;
 	int confirm = 0;
-	PeoInfo empty = { 0 };
 
 	if (NULL == deleObj)
-		return *pcount;
+		return list->count;
 	else
 	{
 		printf("确定删除？1.确定/0.取消\n");
 		scanf("%d", &confirm);
 		if (confirm)
 		{
-			num = deleObj - list;
+			num = deleObj - list->data;
 
-			for (i = num; i < *pcount - 1; i++)
+			for (i = num; i < list->count - 1; i++)
 			{
-				list[i] = list[i + 1];
+				list->data[i] = list->data[i + 1];
 			}
 
-			list[++i] = empty;
-
-			return --(*pcount);
+			return --(list->count);
 		}
 		else
-			return *pcount;
+			return list->count;
 	}
 }
 
+//修改信息用的菜单
 void ModifyMenu()
 {
 	printf("***************************************\n");
@@ -159,13 +164,14 @@ void ModifyMenu()
 	printf("***************************************\n");
 }
 
-PeoInfo* MotifyInfo(PeoInfo list[100], int* pcount)
+//修改联系人的信息
+PeoInfo* MotifyInfo(Contacts* list)
 {
-	PeoInfo* modifyObj = SearchPeo(list, pcount);
+	//获得要修改的联系人地址
+	PeoInfo* modifyObj = SearchPeo(list);
 	int num = 0;
 	int input = 0;
-	PeoInfo empty = { 0 };
-
+	
 	if (NULL == modifyObj)
 	{
 		return NULL;
@@ -177,6 +183,7 @@ PeoInfo* MotifyInfo(PeoInfo list[100], int* pcount)
 			ModifyMenu();
 			scanf("%d", &input);
 
+			//选择修改的内容
 			switch (input)
 			{
 			case 0:
@@ -202,22 +209,14 @@ PeoInfo* MotifyInfo(PeoInfo list[100], int* pcount)
 	}
 }
 
-void SortPeoName(PeoInfo list[100], int count)
+//根据姓名比较顺序
+int CmpByName(const void* elem1, const void* elem2)
 {
-	PeoInfo tmp = { 0 };
-	int i = 0;
-	int j = 0;
+	return strcmp(((PeoInfo*)elem1)->name, ((PeoInfo*)elem2)->name);
+}
 
-	for (i = 0; i < count; i++)
-	{
-		for (j = 0; j < count; j++)
-		{
-			if (strcmp(list[i].name, list[i + 1].name) > 0)
-			{
-				tmp = list[i];
-				list[i] = list[i + 1];
-				list[i + 1] = tmp;
-			}
-		}
-	}
+//按姓名顺序排序
+void SortPeoName(Contacts* list)
+{
+	qsort(list->data, list->count, sizeof(list->data[0]), CmpByName);
 }
